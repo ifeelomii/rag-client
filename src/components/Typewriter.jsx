@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Particle from "./Particles";
 
 const Typewriter=() =>{
     const [value,setValue] = useState('Start Searching !');
@@ -22,13 +23,14 @@ const Typewriter=() =>{
     }
     return(
     <>
+        <Particle/>
         <div 
             contentEditable 
             className="typewriter board" 
             onChange={handleInput}
             suppressContentEditableWarning={true}
         > 
-            <input type="text" contentEditable id="search-box" value={value} onBlur={handleBlur} onClick={handleClick} onChange={handleInput} placeholder="Enter text here"/>
+            <input type="text" contentEditable id="search-box" value={value} onBlur={handleBlur} onClick={handleClick} onChange={handleInput} placeholder="Enter text here !"/>
         </div>
     </>);
 };
