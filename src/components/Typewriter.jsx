@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Particle from "./Particles";
 import axios from "axios";
 
@@ -17,6 +17,8 @@ const Typewriter = () => {
     const searchBox = document.getElementById("search-box");
     searchBox.style.height = "auto";
     searchBox.style.height = searchBox.scrollHeight + "px";
+    searchBox.style.width = "500px";
+    searchBox.style.width = searchBox.scrollWidth + "px";
     searchBox.style.resize = "vertical";
     searchBox.style.whiteSpace = "normal";
     searchBox.style.maxWidth = "600px";
@@ -36,8 +38,8 @@ const Typewriter = () => {
     var strArray = str.trim().split("");
 
     strArray = reProcessArray(strArray);
-    
-    return strArray.toString();
+
+    return strArray.join("");
   };
 
   const reProcessArray = (strArray) => {
@@ -71,15 +73,13 @@ const Typewriter = () => {
           strArray[index] = "";
           break;
       }
-    //   console.log(strArray);
-      return strArray;
     });
+    return strArray;
   };
 
   const submitQuery = (e) => {
     e.preventDefault();
     const query = document.getElementById("search-box").value;
-    // console.log(`Output: ${query} `);
 
     try {
       axios
@@ -92,8 +92,8 @@ const Typewriter = () => {
             description: responseDescription,
           };
           setResponseList([jsonResponseObject, ...responseList]);
-          setValue("");
           setError("");
+          console.log(responseDescription);
         })
         .catch((err) => {
           setError(err.message);
@@ -104,7 +104,6 @@ const Typewriter = () => {
             description: responseDescription,
           };
           setResponseList([jsonResponseObject, ...responseList]);
-          setValue("");
         });
     } catch (err) {
       setError(err.message);
@@ -117,6 +116,13 @@ const Typewriter = () => {
       const outerContainer =
         document.getElementsByClassName("outer-container")[0];
       outerContainer.classList.add("move-bottom");
+      const responseBox = document.getElementsByClassName("response")[0];
+      responseBox.style.minHeight = "21em";
+      responseBox.style.overFlow = "hidden";
+      responseBox.style.backgroundColor="#7463f881";
+      const searchBox = document.getElementsByClassName("search-box")[0];
+      searchBox.style.backgroundColor = "transparent";
+      setValue("");
     }
 
     resetSearchBoxSize();
@@ -124,12 +130,13 @@ const Typewriter = () => {
 
   const resetSearchBoxSize = () => {
     const searchBox = document.getElementById("search-box");
-    searchBox.style.size = "10px";
+    searchBox.style.height = "2em";
+    searchBox.style.minWidth = "10em";
   };
 
   return (
     <>
-      {/* <Particle /> */}
+      <Particle />
       <div className="main-container flex-center">
         <div className="response">
           <ul>
@@ -137,7 +144,11 @@ const Typewriter = () => {
               <ul key={index}>
                 {responseList.query != null || responseList.query != "" ? (
                   <div id="query-div">
-                    <span id="query-span"> {item.query}</span>
+                    <span id="query-span">
+                      {" "}
+                      {item.query.charAt(0).toUpperCase() +
+                        item.query.slice(1).toLowerCase()}
+                    </span>
                   </div>
                 ) : (
                   ""
@@ -146,7 +157,7 @@ const Typewriter = () => {
                 {responseList.description != null ||
                 responseList.description != "" ? (
                   <div id="description-div">
-                    <span id="description-span">Description:</span>{" "}
+                    <div id="description-span">Description:</div>{" "}
                     {item.description}
                   </div>
                 ) : (
