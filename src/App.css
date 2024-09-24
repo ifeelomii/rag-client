@@ -1,16 +1,41 @@
-.App {
-  text-align: center;
+body, html {
+  height: 100%; 
+  margin: 0;
 }
 
-.App-header {
+.main-container{
+  text-align: center;
   background: linear-gradient(#5D48FF, #8b79ffd3);
   min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.response {
+  margin-top: 2em;
+  text-align: left;
+  min-width: 30em;
+  max-height: 30vh;
+  overflow-y: auto; 
+}
+
+.flex-center {
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.move-bottom {
+  position: fixed;
+  bottom: 0;
+  max-height: inherit;
+  text-align: center;
+}
+
+.line{
+  border: 1px solid black;
+  width: 100%;
 }
 
 .typewriter{
@@ -53,9 +78,10 @@ textarea::placeholder {
   align-items: center;
 }
 
+
 #search-box{
-  border: none;
-  width: auto;
+  border: 2px;
+  width: 100%;
 }
 
 #arrow-symbol{
@@ -81,4 +107,58 @@ textarea::placeholder {
 @keyframes blink-caret {
   from, to { border-color: transparent }
   50% { border-color: orange }
+}
+
+.response{
+  margin-top: 2em;
+  text-align: left;
+  padding: 1.5em, 1em, 1em, 0.6em;
+  min-width: 50em;
+  overflow: hidden;
+  margin-right:2em ;
+}
+
+#query-div > #query-span{
+  margin: 3em, auto, 3em, auto;
+}
+
+#query-div,
+#description-div{
+  margin: 12px 0 12px 0;
+}
+
+ul{
+  padding-left: 1em;
+}
+
+#query-span{
+  display: block;
+  text-align: right;
+  color: black;
+  font-family: monospace;
+}
+
+#description-span{
+  font-weight: 700;
+}
+
+#description-div {
+  min-width: auto;
+  background: transparent;
+  border: none;
+  color: #fff;
+  resize: none;
+  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
+  font-family: monospace;
+  overflow: hidden; 
+  text-shadow: 0.7px 0.7px #666, 2.5px 3px #000;
+  white-space: nowrap;
+  margin: 0 auto; 
+  line-height: 1.5;
+  letter-spacing: .15em; 
+  animation: 
+  typing 2.5s steps(20,end),
+  blink-caret 0.8s step-start;
 }
