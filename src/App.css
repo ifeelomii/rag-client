@@ -17,12 +17,16 @@
   height: auto;
 }
 
-.typewriter input{
+.typewriter textarea{
   min-width: auto;
   background: transparent;
   border: none;
   font-size: 3rem;
   color: #fff;
+  resize: none;
+  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
   font-family: monospace;
   overflow: hidden; 
   border-right: .15em solid orange; 
@@ -36,14 +40,37 @@
   blink-caret 0.8s step-start;
 }
 
-input::placeholder {
-  color: #fff;
+textarea::placeholder {
+  color: #ffffffc4;
   opacity: 1;
   text-align: center;
 }
 
-#serach-box{
+.outer-container{
+  display: flex;
+  flex-direction: row;
+  row-gap: 2em;
+  align-items: center;
+}
+
+#search-box{
   border: none;
+  width: auto;
+}
+
+#arrow-symbol{
+  color: #ffffffc4;
+  border: 2px solid black;
+  padding: 0.2em;
+  border-radius: 50%;
+  font-size: 3em;
+}
+
+#search-button {
+  border: none;
+  margin-left: 0.5rem;
+  height: 5rem;
+  background: transparent;
 }
 
 @keyframes typing {
