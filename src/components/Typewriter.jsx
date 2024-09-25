@@ -77,6 +77,10 @@ const Typewriter = () => {
     return strArray;
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") submitQuery(e);
+  };
+
   const submitQuery = (e) => {
     e.preventDefault();
     const query = document.getElementById("search-box").value;
@@ -119,7 +123,7 @@ const Typewriter = () => {
       const responseBox = document.getElementsByClassName("response")[0];
       responseBox.style.minHeight = "21em";
       responseBox.style.overFlow = "hidden";
-      responseBox.style.backgroundColor="#7463f881";
+      responseBox.style.backgroundColor = "#7463f881";
       const searchBox = document.getElementsByClassName("search-box")[0];
       searchBox.style.backgroundColor = "transparent";
       setValue("");
@@ -184,6 +188,7 @@ const Typewriter = () => {
               onClick={handleClick}
               onChange={handleChange}
               onInput={handleInput}
+              onKeyDown={handleKeyDown}
               placeholder="Enter text here!"
             />
           </div>
