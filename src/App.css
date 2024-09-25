@@ -56,7 +56,7 @@ html {
   font-family: monospace;
   overflow: hidden;
   border-right: 0.15em solid orange;
-  text-shadow: 0.7px 0.7px #666, 2.5px 3px #000;
+  text-shadow: 0.7px 0.7px #666, 2px 2.5px #000;
   white-space: nowrap;
   margin: 0 auto;
   line-height: 1.5;
@@ -65,7 +65,9 @@ html {
 }
 
 textarea::placeholder {
-  color: #ffffffc4;
+  font-size: larger;
+  text-shadow: 0.7px 0.7px #666, 2px 2.5px #000;
+  color: #ffffff;
   opacity: 1;
   text-align: center;
 }

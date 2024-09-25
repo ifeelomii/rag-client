@@ -33,50 +33,6 @@ const Typewriter = () => {
     setShowButton(value != null || value === "" ? true : "");
   };
 
-  const processResponseString = (str) => {
-    str = JSON.stringify(str);
-    var strArray = str.trim().split("");
-
-    strArray = reProcessArray(strArray);
-
-    return strArray.join("");
-  };
-
-  const reProcessArray = (strArray) => {
-    strArray.forEach((char, index) => {
-      switch (char) {
-        case '"':
-          strArray[index] = '"';
-          break;
-
-        case "\n":
-          strArray[index] = "\n";
-          break;
-
-        case "\\":
-          if (strArray[index + 1] === "n") {
-            strArray[index] = "";
-            strArray[index + 1] = "\n";
-          } else if (strArray[index + 1] === '"') {
-            strArray[index] = "";
-            strArray[index + 1] = '"';
-          } else if (
-            strArray[index + 1] === "t" ||
-            typeof strArray[index + 1] === "number"
-          ) {
-            strArray[index] = "";
-            strArray[index + 1] = "";
-          }
-          break;
-
-        case "*":
-          strArray[index] = "";
-          break;
-      }
-    });
-    return strArray;
-  };
-
   const handleKeyDown = (e) => {
     if (e.key === "Enter") submitQuery(e);
   };
@@ -90,7 +46,8 @@ const Typewriter = () => {
         .post("http://127.0.0.1:5000/ask", { query })
         .then((res) => {
           const responseQuery = query;
-          const responseDescription = processResponseString(res.data.response);
+          // console.log(res.data.response)
+          const responseDescription = formatResponse(res.data.response);
           const jsonResponseObject = {
             query: responseQuery,
             description: responseDescription,
@@ -138,6 +95,15 @@ const Typewriter = () => {
     searchBox.style.minWidth = "10em";
   };
 
+  const formatResponse = (response) => {
+    return response
+      .replace(/\n/g, "<br/>")
+      .replace(/\*/g,"")
+      .replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;")
+      .replace(/(\bword\b)/gi, "<strong>$1</strong>")
+      .replace(/""/g,"");
+  };
+
   return (
     <>
       <Particle />
@@ -162,7 +128,7 @@ const Typewriter = () => {
                 responseList.description != "" ? (
                   <div id="description-div">
                     <div id="description-span">Description:</div>{" "}
-                    {item.description}
+                    <p dangerouslySetInnerHTML={{ __html: formatResponse(item.description) }}/>
                   </div>
                 ) : (
                   ""
